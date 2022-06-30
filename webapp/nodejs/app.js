@@ -282,7 +282,7 @@ app.post("/api/chair/buy/:id", async (req, res, next) => {
     // const [
     //   chair,
     // ] = await query(
-    //   "SELECT * FROM chair WHERE id = ? AND stock > 0 FOR UPDATE",
+    //   "SELECT * FROM chair WHERE id = ? AND stock > 0",
     //   [id]
     // );
     // if (chair == null) {
@@ -290,8 +290,8 @@ app.post("/api/chair/buy/:id", async (req, res, next) => {
     //   await rollback();
     //   return;
     // }
-    await query("UPDATE chair SET stock = ? WHERE id = ? AND stock > 0", [
-      chair.stock - 1,
+    await query("UPDATE chair SET stock = stock-1 WHERE id = ? AND stock > 0", [
+      // chair.stock - 1,
       id,
     ]);
     await commit();
