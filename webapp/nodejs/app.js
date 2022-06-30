@@ -278,7 +278,7 @@ app.post("/api/chair/buy/:id", async (req, res, next) => {
   const rollback = promisify(connection.rollback.bind(connection));
   try {
     const id = req.params.id;
-    // await beginTransaction();
+    await beginTransaction();
     // const [
     //   chair,
     // ] = await query(
