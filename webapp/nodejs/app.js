@@ -278,19 +278,19 @@ app.post("/api/chair/buy/:id", async (req, res, next) => {
   const rollback = promisify(connection.rollback.bind(connection));
   try {
     const id = req.params.id;
-    await beginTransaction();
-    const [
-      chair,
-    ] = await query(
-      "SELECT * FROM chair WHERE id = ? AND stock > 0 FOR UPDATE",
-      [id]
-    );
-    if (chair == null) {
-      res.status(404).send("Not Found");
-      await rollback();
-      return;
-    }
-    await query("UPDATE chair SET stock = ? WHERE id = ?", [
+    // await beginTransaction();
+    // const [
+    //   chair,
+    // ] = await query(
+    //   "SELECT * FROM chair WHERE id = ? AND stock > 0 FOR UPDATE",
+    //   [id]
+    // );
+    // if (chair == null) {
+    //   res.status(404).send("Not Found");
+    //   await rollback();
+    //   return;
+    // }
+    await query("UPDATE chair SET stock = ? WHERE id = ? AND stock > 0", [
       chair.stock - 1,
       id,
     ]);
